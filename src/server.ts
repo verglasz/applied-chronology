@@ -1,17 +1,26 @@
 import express from 'express';
-import path from 'path';
+
+import db from './models/index';
+import users from './routes/users';
 
 const app = express();
 const defaultPort = 8080;
 
-// Configure Express to use EJS
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// parse content-type: application/json requests
+app.use(express.json());
 
-// define a route handler for the default home page
-app.get('/', (req, res) => {
-  res.json({ hallo: 'from server', url: req.url, body: req.body });
+db.sequelize.sync();
+
+// route handler for the default home page
+app.get('/', (_req, res) => {
+  res.json({ message: 'hello there' });
 });
+// route handler for fun
+app.get('/hellothere', (_req, res) => {
+  res.json({ message: 'General Kenobi' });
+});
+
+app.use('/api/users', users);
 
 // start the express server
 app.listen(defaultPort, () => {
