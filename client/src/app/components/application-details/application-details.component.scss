@@ -1,0 +1,29 @@
+.details {
+  margin: 2em;
+}
+
+.summary {
+  display: flex;
+}
+
+.spacer {
+  min-width: 10em;
+  flex: 1 1 auto;
+}
+
+.update-date .company-name {
+  margin: auto;
+}
+
+.notes {
+  width: 100%;
+}
+
+.note-text {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h3 {
+  margin: 5pt;
+}

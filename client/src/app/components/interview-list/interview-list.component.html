@@ -1,0 +1,64 @@
+<div>
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let interview of interviews; let i = index"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ interview.date.toLocaleString() }}
+        </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>This is the primary content of the panel.</p>
+    </mat-expansion-panel>
+    <!--
+    <mat-expansion-panel
+      hideToggle
+      (opened)="log('open 1')"
+      (closed)="log('close 1')"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Pretend </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>This is the primary content of the panel.</p>
+    </mat-expansion-panel>
+    -->
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-icon>add</mat-icon>
+        <mat-panel-title> <i>Add interview </i></mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="newForm" (ngSubmit)="create()" autocomplete="off">
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Interview Date</mat-label>
+            <input matInput [matDatepicker]="newDate" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="newDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #newDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes"></textarea>
+          </mat-form-field>
+        </div>
+        <button
+          mat-flat-button
+          color="accent"
+          type="submit"
+          [disabled]="!newForm.valid"
+        >
+          Add interview
+        </button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

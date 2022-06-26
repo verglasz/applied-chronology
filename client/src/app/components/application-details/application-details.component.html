@@ -1,0 +1,39 @@
+<div class="details">
+  <div class="summary">
+    <h2 class="company-name">Job application to {{ application.company }}</h2>
+    <div class="spacer"></div>
+    <h4 class="update-date">
+      Last updated on: {{ application.updated.toDateString() }}
+    </h4>
+  </div>
+  <div class="notes">
+    <mat-card>
+      <mat-card-title>Notes</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="editing; else elseBlock" class="edit-note">
+          <form [formGroup]="form" (ngSubmit)="saveNotes()" autocomplete="off">
+            <div>
+              <mat-form-field appearance="fill">
+                <textarea matInput formControlName="notes"></textarea>
+              </mat-form-field>
+            </div>
+            <button mat-flat-button color="accent" type="submit">Save</button>
+          </form>
+        </div>
+        <ng-template #elseBlock>
+          <div class="note-text">
+            <span *ngIf="this.application.notes; else noNotes">
+              {{ this.application.notes }}
+            </span>
+            <ng-template #noNotes>
+              <span class="no-notes"></span>
+            </ng-template>
+          </div>
+          <button mat-stroked-button (click)="setEditing()">Edit</button>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <h3>Interviews</h3>
+  <app-interview-list [applicationId]="application.id"></app-interview-list>
+</div>
