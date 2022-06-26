@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import { Dialect } from 'sequelize';
 
 export const CONFIG = {
-  HOST: 'localhost',
-  USER: 'testdb',
-  PASSWORD: 'testpw',
-  DB: 'testdb',
+  HOST: process.env.DB_HOST || 'localhost',
+  USER: process.env.DB_USER || 'testdb',
+  PASSWORD: process.env.DB_PW || 'testpw',
+  DB: process.env.DB_NAME || 'testdb',
   dialect: 'postgres' as Dialect,
   pool: {
     max: 5,
