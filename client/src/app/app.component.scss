@@ -4,6 +4,7 @@
 
 .content {
   display: flex;
+  justify-content: center;
 }
 
 app-application-list {
@@ -11,9 +12,9 @@ app-application-list {
 }
 
 .login-box {
-  width: 40%;
+  min-width: 20%;
 }
 
 .signup-box {
-  width: 40%;
+  min-width: 20%;
 }

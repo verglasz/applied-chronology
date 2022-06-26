@@ -9,11 +9,9 @@
   <app-application-list *ngIf="logged; else elseBlock"> </app-application-list>
   <ng-template #elseBlock>
     <div class="login-box">
-      <h3>Are you a returning user?</h3>
       <app-login-form> </app-login-form>
     </div>
     <div class="signup-box">
-      <h3>New to Applied Chronology?</h3>
       <app-signup-form> </app-signup-form>
     </div>
   </ng-template>
