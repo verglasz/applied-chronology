@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import db from '../models/index';
 
 export async function create(req: Request, res: Response) {
-  const { applicationId, date } = req.body;
+  const { applicationId, date, notes } = req.body;
   let message = '';
   // validate request
   if (!applicationId || !date) {
@@ -22,7 +22,7 @@ export async function create(req: Request, res: Response) {
       res.status(404).send({ message });
       return;
     }
-    const data = db.interviews.create({ applicationId, date });
+    const data = db.interviews.create({ applicationId, date, notes });
     res.send(data);
   } catch (err: any) {
     message = 'An error occurred while creating interview';

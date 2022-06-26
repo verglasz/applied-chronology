@@ -5,7 +5,7 @@ function validatePw(password: string): boolean {
   return true;
 }
 
-export function create(req: Request, res: Response) {
+export async function create(req: Request, res: Response) {
   const { username, password } = req.body;
   let code = 200;
   let message = '';
@@ -24,12 +24,21 @@ export function create(req: Request, res: Response) {
     res.status(code).send({ message });
     return;
   }
-  message = 'An error occurred while creating user';
-  // create the user
-  db.users
-    .create({ username, password })
-    .then((data) => res.send(data))
-    .catch((err) => res.status(500).send({ message: err.message || message }));
+  try {
+    // check if user already present
+    const user = await db.users.findOne({ where: { username } });
+    if (user) {
+      message = 'Username already exists';
+      res.status(409).send({ message, duplicate: true });
+      return;
+    }
+    // create the user
+    const data = await db.users.create({ username, password });
+    res.send(data);
+  } catch (err: any) {
+    message = 'An error occurred while creating user';
+    res.status(500).send({ message: err.message || message });
+  }
 }
 
 export function findAll(req: Request, res: Response) {
@@ -43,12 +52,12 @@ export function findAll(req: Request, res: Response) {
 export function findOne(req: Request, res: Response) {
   let message = 'An error occurred while fetching user';
   db.users
-    .findByPk(req.params.id)
+    .findByPk(req.params.userId)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
-        message = `Cannot find user with id=${req.params.id}`;
+        message = `Cannot find user with id=${req.params.userId}`;
         res.status(404).send({ message });
       }
     })
@@ -65,13 +74,13 @@ export function update(req: Request, res: Response) {
   }
   message = 'An error occurred while updating user';
   db.users
-    .update({ name, password }, { where: { id: req.params.id } })
+    .update({ name, password }, { where: { id: req.params.userId } })
     .then(([count]) => {
       if (count === 1) {
         message = 'User updated successfully';
         res.send({ message });
       } else if (count === 0) {
-        message = `Cannot update user with id=${req.params.id}`;
+        message = `Cannot update user with id=${req.params.userId}`;
         res.status(404).send({ message });
       }
     })
@@ -81,14 +90,30 @@ export function update(req: Request, res: Response) {
 export function deleteOne(req: Request, res: Response) {
   let message = 'An error occurred while deleting user';
   db.users
-    .destroy({ where: { id: req.params.id } })
+    .destroy({ where: { id: req.params.userId } })
     .then((count) => {
       if (count === 1) {
         message = 'User deleted successfully';
         res.send({ message });
       } else if (count === 0) {
-        message = `Cannot delete user with id=${req.params.id}`;
+        message = `Cannot delete user with id=${req.params.userId}`;
         res.status(404).send({ message });
+      }
+    })
+    .catch((err) => res.status(500).send({ message: err.message || message }));
+}
+
+export function login(req: Request, res: Response) {
+  let message = 'An error occurred while searching user';
+  const { username, password } = req.body;
+  db.users
+    .findOne({ where: { username, password } })
+    .then((user) => {
+      if (!user) {
+        message = 'Incorrect username or password';
+        res.status(403).send({ message });
+      } else {
+        res.send({ id: user.id });
       }
     })
     .catch((err) => res.status(500).send({ message: err.message || message }));

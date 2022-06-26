@@ -4,6 +4,10 @@ import applications from './applications';
 import interviews from './interviews';
 
 export const router = Router();
+
+// TODO: proper auth
+router.put('/login', users.login);
+
 router.post('/', users.create);
 router.get('/', users.findAll);
 router.get('/:userId', users.findOne);

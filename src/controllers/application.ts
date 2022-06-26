@@ -34,7 +34,7 @@ export function findOne(req: Request, res: Response) {
   db.applications
     .findByPk(applicationId)
     .then((data) => {
-      if (data && data.userId === userId) {
+      if (data && data.userId == userId) {
         res.send(data);
       } else {
         message = `Cannot find application with id=${applicationId} for user=${userId}`;
@@ -54,13 +54,16 @@ export function update(req: Request, res: Response) {
   }
   message = 'An error occurred while updating application';
   db.applications
-    .update({ notes, updated: Date.now() }, { where: { id: req.params.id } })
+    .update(
+      { notes, updated: Date.now() },
+      { where: { id: req.params.applicationId } }
+    )
     .then(([count]) => {
       if (count === 1) {
         message = 'application updated successfully';
         res.send({ message });
       } else if (count === 0) {
-        message = `Cannot update application with id=${req.params.id}`;
+        message = `Cannot update application with id=${req.params.applicationId}`;
         res.status(404).send({ message });
       }
     })
