@@ -1,2 +1,19 @@
+.spacer {
+  flex: 1 1 auto;
+}
 
+.content {
+  display: flex;
+}
 
+app-application-list {
+  width: 100%;
+}
+
+.login-box {
+  width: 40%;
+}
+
+.signup-box {
+  width: 40%;
+}
