@@ -1,0 +1,6 @@
+<div class="login-state" *ngIf="username">
+  <span class="label">Logged in as {{ username }}</span>
+  <button mat-flat-button color="primary" type="button" (click)="logout()">
+    Logout
+  </button>
+</div>
