@@ -1,15 +1,36 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.scss']
+  styleUrls: ['./signup-form.component.scss'],
 })
 export class SignupFormComponent implements OnInit {
+  form!: FormGroup;
+  hidePw: boolean = true;
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      username: [
+        null,
+        [Validators.required, Validators.pattern(/^[A-Za-z0-9@_.-]*$/)],
+      ],
+      password: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-z0-9 @_.,!?;:#$%^*()-]*$/),
+        ],
+      ],
+    });
   }
 
+  submit(form: FormGroup): void {
+    const { username, password } = form.value;
+    this.userService.register({ username, password });
+  }
 }

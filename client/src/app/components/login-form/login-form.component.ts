@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-form',
@@ -10,7 +11,7 @@ export class LoginFormComponent implements OnInit {
   form!: FormGroup;
   hidePw: boolean = true;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -22,5 +23,8 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  submit(form: FormGroup): void {}
+  submit(form: FormGroup): void {
+    const { username, password } = form.value;
+    this.userService.login({ username, password });
+  }
 }
