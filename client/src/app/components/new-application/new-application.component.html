@@ -1,0 +1,20 @@
+<div class="create-form">
+  <form [formGroup]="form" (ngSubmit)="create(form)" autocomplete="off">
+    <div>
+      <mat-form-field appearance="standard">
+        <mat-label>Company name</mat-label>
+        <input matInput formControlName="company" />
+      </mat-form-field>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Create job application
+      </button>
+    </div>
+  </form>
+</div>
