@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginStateComponent } from './components/login-state/login-state.component';
 import { NewApplicationComponent } from './components/new-application/new-application.component';
 import { NewInterviewComponent } from './components/new-interview/new-interview.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgMaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
