@@ -11,6 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [],
@@ -27,6 +30,9 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
+    MatListModule,
+    MatExpansionModule,
   ],
   exports: [
     CommonModule,
@@ -41,6 +47,9 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
+    MatListModule,
+    MatExpansionModule,
   ],
 })
 export class NgMaterialModule {}
