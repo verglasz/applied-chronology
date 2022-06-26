@@ -1,0 +1,31 @@
+<div class="applications">
+  <h2>Current Applications</h2>
+  <div class="list">
+    <div class="items">
+      <mat-action-list>
+        <button
+          mat-list-item
+          *ngFor="let application of applications; let i = index"
+          (click)="setSelected(i)"
+        >
+          {{ application.company }}
+        </button>
+        <button mat-list-item (click)="setCreating()">
+          <mat-icon>add</mat-icon>
+          <span>Add job application</span>
+        </button>
+      </mat-action-list>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="details">
+      <app-application-details
+        *ngIf="selected !== undefined"
+        [application]="applications[selected]"
+      ></app-application-details>
+      <app-new-application
+        *ngIf="creating"
+        (onCreate)="fetchApplications()"
+      ></app-new-application>
+    </div>
+  </div>
+</div>
