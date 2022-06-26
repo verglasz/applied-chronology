@@ -35,10 +35,19 @@ export class UserService {
     return this.http.post(`${baseUrl}/users/`, data);
   }
 
-  login(data: { username: string; password: string }) {
-    this.http.put<any>(`${baseUrl}/users/login`, data).subscribe({
+  login(
+    data: { username: string; password: string },
+    invalidCallback: () => any
+  ) {
+    this.http.put<{ id: string }>(`${baseUrl}/users/login`, data).subscribe({
       next: (data) => this.setLogin(data.id),
-      error: (e) => console.error(e),
+      error: (e) => {
+        if (e.status == 403) {
+          invalidCallback();
+        } else {
+          console.error(e);
+        }
+      },
     });
   }
 

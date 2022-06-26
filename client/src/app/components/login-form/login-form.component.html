@@ -38,6 +38,11 @@
           >
         </mat-form-field>
       </div>
+      <div class="invalid-error">
+        <mat-error *ngIf="wrongCredentials">
+          Incorrect username or password!
+        </mat-error>
+      </div>
       <div>
         <button
           mat-raised-button

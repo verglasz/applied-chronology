@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginFormComponent implements OnInit {
   form!: FormGroup;
   hidePw: boolean = true;
+  wrongCredentials = false;
 
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
@@ -24,7 +25,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   submit(form: FormGroup): void {
+    this.wrongCredentials = false;
     const { username, password } = form.value;
-    this.userService.login({ username, password });
+    this.userService.login(
+      { username, password },
+      () => (this.wrongCredentials = true)
+    );
   }
 }
