@@ -2,20 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { baseUrl } from '../config';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   userId?: number;
+  username?: string;
   loginChange = new Subject<number | undefined>();
+  nameChange = new Subject<string | undefined>();
 
   constructor(private http: HttpClient) {
-    const savedId = window.localStorage.getItem('userId');
-    if (savedId) this.userId = parseInt(savedId);
     this.loginChange.subscribe((value) => {
       this.updateUid(value);
     });
+    this.nameChange.subscribe((value) => {
+      this.username = value;
+    });
+    const savedId = window.localStorage.getItem('userId');
+    if (savedId) this.updateUid(parseInt(savedId));
   }
 
   register(data: { username: string; password: string }) {
@@ -62,7 +68,12 @@ export class UserService {
     this.userId = uid;
     if (uid === undefined) {
       window.localStorage.removeItem('userId');
+      this.username = undefined;
     } else {
+      this.http.get<User>(`${baseUrl}/users/${uid}`).subscribe({
+        next: (data) => this.nameChange.next(data.username),
+        error: (e) => console.error(e),
+      });
       window.localStorage.setItem('userId', uid.toString());
     }
   }

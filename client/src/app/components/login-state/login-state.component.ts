@@ -7,13 +7,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login-state.component.scss'],
 })
 export class LoginStateComponent implements OnInit {
-  username?: number;
+  username?: string;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.username = this.userService.userId;
-    this.userService.loginChange.subscribe((value) => {
+    this.username = this.userService.username;
+    this.userService.nameChange.subscribe((value) => {
       this.username = value;
     });
   }

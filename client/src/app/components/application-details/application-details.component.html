@@ -22,9 +22,9 @@
         </div>
         <ng-template #elseBlock>
           <div class="note-text">
-            <span *ngIf="this.application.notes; else noNotes">
+            <div *ngIf="this.application.notes; else noNotes">
               {{ this.application.notes }}
-            </span>
+            </div>
             <ng-template #noNotes>
               <span class="no-notes"></span>
             </ng-template>
