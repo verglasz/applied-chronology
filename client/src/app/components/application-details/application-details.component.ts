@@ -18,7 +18,6 @@ export class ApplicationDetailsComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private applSvc: ApplicationService,
-    private intvSvc: InterviewService,
     private usrSvc: UserService
   ) {}
 
