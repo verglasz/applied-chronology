@@ -14,6 +14,7 @@ import { InterviewService } from 'src/app/services/interview.service';
 export class InterviewListComponent implements OnInit {
   @Input() applicationId!: number;
   interviews!: Interview[];
+  editing?: number;
 
   newForm!: FormGroup;
   editForm!: FormGroup;
@@ -39,6 +40,7 @@ export class InterviewListComponent implements OnInit {
   resetNewForm() {
     this.newForm = this.fb.group({
       date: [null, Validators.required],
+      time: [null, Validators.required],
       notes: null,
     });
   }
@@ -55,7 +57,10 @@ export class InterviewListComponent implements OnInit {
   }
 
   create() {
-    const { notes, date } = this.newForm.value;
+    const { notes, date, time }: { notes: string; date: Date; time: string } =
+      this.newForm.value;
+    const [hours, minutes] = time.split(':').map((x) => parseInt(x));
+    date.setHours(hours, minutes);
     this.intvSvc
       .create(this.usrSvc.getUid(), {
         applicationId: this.applicationId,
