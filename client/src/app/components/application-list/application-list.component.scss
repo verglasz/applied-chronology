@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@import "../../theming.scss";
+
 .applications {
   width: auto;
   height: 90%;
@@ -8,7 +11,9 @@
 }
 
 .list {
-  border: solid black;
+  border-style: solid;
+  border-color: mat.get-color-from-palette($primary-palette, "lighter");
+  border-radius: 10px;
   display: flex;
   width: 100%;
   min-height: 300px;
