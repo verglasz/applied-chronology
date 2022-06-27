@@ -8,12 +8,10 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   title = 'Applied Chronology';
-  logged: boolean;
 
-  constructor(private userService: UserService) {
-    this.logged = !!userService.userId;
-    userService.loginChange.subscribe((value) => {
-      this.logged = !!value;
-    });
+  constructor(private userService: UserService) {}
+
+  isLoggedIn(): boolean {
+    return this.userService.userId !== undefined;
   }
 }

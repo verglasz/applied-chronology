@@ -6,7 +6,8 @@
 </mat-toolbar>
 
 <div class="content" role="main">
-  <app-application-list *ngIf="logged; else elseBlock"> </app-application-list>
+  <app-application-list *ngIf="isLoggedIn(); else elseBlock">
+  </app-application-list>
   <ng-template #elseBlock>
     <div class="login-box">
       <app-login-form> </app-login-form>

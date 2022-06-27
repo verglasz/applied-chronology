@@ -15,6 +15,7 @@ function normalizeDate(interview: StringDateInterview): Interview {
   };
 }
 
+// service to handle all api request for Interviews (the job interview objects)
 @Injectable({
   providedIn: 'root',
 })

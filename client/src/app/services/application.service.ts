@@ -17,6 +17,7 @@ function normalizeDate(application: StringDateApplication): Application {
   };
 }
 
+// service to handle all api request for Applications (the job application objects)
 @Injectable({
   providedIn: 'root',
 })

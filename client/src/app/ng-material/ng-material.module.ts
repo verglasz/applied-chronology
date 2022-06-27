@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+// A module to group up all the required modules for Material components
 @NgModule({
   declarations: [],
   imports: [

@@ -19,6 +19,6 @@ export class LoginStateComponent implements OnInit {
   }
 
   logout() {
-    this.userService.unsetLogin();
+    this.userService.logout();
   }
 }
