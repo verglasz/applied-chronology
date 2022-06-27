@@ -9,6 +9,7 @@ const defaultPort = 8080;
 // parse content-type: application/json requests
 app.use(express.json());
 
+// connect to db
 db.sequelize.sync();
 
 // route handler for the default home page
