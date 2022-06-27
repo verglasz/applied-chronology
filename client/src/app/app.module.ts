@@ -15,7 +15,6 @@ import { ApplicationDetailsComponent } from './components/application-details/ap
 import { HttpClientModule } from '@angular/common/http';
 import { LoginStateComponent } from './components/login-state/login-state.component';
 import { NewApplicationComponent } from './components/new-application/new-application.component';
-import { NewInterviewComponent } from './components/new-interview/new-interview.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { NewInterviewComponent } from './components/new-interview/new-interview.
     ApplicationDetailsComponent,
     LoginStateComponent,
     NewApplicationComponent,
-    NewInterviewComponent,
   ],
   imports: [
     BrowserModule,
