@@ -4,6 +4,8 @@ import { Observable, map } from 'rxjs';
 import { Application } from '../models/application';
 import { baseUrl } from '../config';
 
+// the data we get from API requests has the date as a string ISO timestamps,
+// so we convert them as we get them here
 type StringDateApplication = Omit<Omit<Application, 'started'>, 'updated'> & {
   started: string;
   updated: string;
@@ -17,7 +19,9 @@ function normalizeDate(application: StringDateApplication): Application {
   };
 }
 
-// service to handle all api request for Applications (the job application objects)
+/**
+ * service to handle all api request for Applications (the job application objects)
+ */
 @Injectable({
   providedIn: 'root',
 })

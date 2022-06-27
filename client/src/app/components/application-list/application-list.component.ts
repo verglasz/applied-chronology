@@ -3,6 +3,10 @@ import { Application } from 'src/app/models/application';
 import { ApplicationService } from 'src/app/services/application.service';
 import { UserService } from 'src/app/services/user.service';
 
+/**
+ * Display the list of the user's applications, with
+ * a panel showing details of the selected one
+ */
 @Component({
   selector: 'app-application-list',
   templateUrl: './application-list.component.html',
@@ -23,11 +27,7 @@ export class ApplicationListComponent implements OnInit {
   }
 
   fetchApplications(): void {
-    const userId = this.userService.userId;
-    if (!userId) {
-      console.error('Rendering application list while not logged in!');
-      return;
-    }
+    const userId = this.userService.getUid();
     this.applSvc.getAll(userId).subscribe({
       next: (data) => (this.applications = data),
       error: (e) => console.error(e),

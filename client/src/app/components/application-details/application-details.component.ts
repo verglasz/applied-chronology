@@ -5,6 +5,9 @@ import { ApplicationService } from 'src/app/services/application.service';
 import { UserService } from 'src/app/services/user.service';
 import { InterviewService } from 'src/app/services/interview.service';
 
+/**
+ * Display the info related to a job application, and the respective interviews
+ */
 @Component({
   selector: 'app-application-details',
   templateUrl: './application-details.component.html',

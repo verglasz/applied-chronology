@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApplicationService } from 'src/app/services/application.service';
 import { UserService } from 'src/app/services/user.service';
 
+/**
+ * Component form to create a new application
+ */
 @Component({
   selector: 'app-new-application',
   templateUrl: './new-application.component.html',

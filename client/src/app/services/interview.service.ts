@@ -4,6 +4,8 @@ import { map, Observable } from 'rxjs';
 import { Interview } from '../models/interview';
 import { baseUrl } from '../config';
 
+// the data we get from API requests has the date as a string ISO timestamps,
+// so we convert them as we get them here
 type StringDateInterview = Omit<Interview, 'date'> & {
   date: string;
 };
@@ -15,7 +17,9 @@ function normalizeDate(interview: StringDateInterview): Interview {
   };
 }
 
-// service to handle all api request for Interviews (the job interview objects)
+/**
+ * service to handle all api request for Interviews (the job interview objects)
+ */
 @Injectable({
   providedIn: 'root',
 })

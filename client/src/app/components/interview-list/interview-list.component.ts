@@ -6,6 +6,10 @@ import { ApplicationService } from 'src/app/services/application.service';
 import { UserService } from 'src/app/services/user.service';
 import { InterviewService } from 'src/app/services/interview.service';
 
+/**
+ * Display the list of the interviews related to one application,
+ * with respective notes
+ */
 @Component({
   selector: 'app-interview-list',
   templateUrl: './interview-list.component.html',
