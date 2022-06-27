@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
+// component to display username and logout button when logged in
 @Component({
   selector: 'app-login-state',
   templateUrl: './login-state.component.html',

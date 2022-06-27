@@ -4,12 +4,15 @@ import { Observable, Subject } from 'rxjs';
 import { baseUrl } from '../config';
 import { User } from '../models/user';
 
-/* This service keeps track of the current login status and
- * handles login and registration requests.
+/**
+ * Service to keep track of the current login status and
+ * handle login and registration requests.
  *
- * It's mostly temporary, waiting for proper authentication
- * (basically right now everything is wrong with auth)
+ * Components that want to receive updates on login state changes
+ * should `subscribe` to the respective Subjects
  */
+// It's mostly temporary, waiting for proper authentication
+// (basically right now everything is wrong with auth)
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +23,9 @@ export class UserService {
   nameChange = new Subject<string | undefined>(); // to subscribe to username changes
 
   constructor(private http: HttpClient) {
-    // set up the Subjects to update the instance values on .next()
+    // set up the Subjects to update the instance values on .next(),
+    // all changes should go through the Subjects and should
+    // be initiated by the updateUid() method
     this.loginChange.subscribe((value) => {
       this.userId = value;
     });
@@ -46,8 +51,10 @@ export class UserService {
     return this.http.post<User>(`${baseUrl}/users/`, data);
   }
 
-  // attempt to login, setting the login state if successful or
-  // executing the provided callback in case of invalid credentials
+  /**
+   * Attempt to login, setting the login state if successful or
+   * executing the provided callback in case of invalid credentials
+   */
   login(
     data: { username: string; password: string },
     invalidCallback: () => any
@@ -68,8 +75,12 @@ export class UserService {
     this.updateUid(undefined);
   }
 
-  // this function should only be called by components
-  // which are only available when logged in
+  /**
+   * Return uid as a defined number; this is for typescript convenience
+   * (avoiding undefined checks) and should only be called by components
+   * which are only available when logged in
+   * to ensure it will return a valid uid
+   */
   getUid(): number {
     if (this.userId === undefined) {
       // XXX: maybe throw instead
