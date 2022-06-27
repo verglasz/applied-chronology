@@ -27,9 +27,12 @@ export class LoginFormComponent implements OnInit {
   submit(form: FormGroup): void {
     this.wrongCredentials = false;
     const { username, password } = form.value;
-    this.userService.login(
-      { username, password },
-      () => (this.wrongCredentials = true)
-    );
+    this.userService.login({ username, password }, (err) => {
+      if (err.status === 403) {
+        this.wrongCredentials = true;
+        return false;
+      }
+      return true;
+    });
   }
 }

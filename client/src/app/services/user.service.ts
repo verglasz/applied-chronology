@@ -37,13 +37,20 @@ export class UserService {
     if (savedId) this.updateUidFromString(savedId);
   }
 
-  // register a new user and log in as that user if successful
-  register(data: { username: string; password: string }) {
+  /**
+   * Register a new user and log in as that user if successful,
+   * or invoke the given callback if not, logging the error
+   * if the callback returns a truthy value
+   */
+  register(
+    data: { username: string; password: string },
+    onError: (err: any) => any
+  ) {
     this.create(data).subscribe({
-      next: (data) => {
-        console.log(data), this.updateUid(data.id);
+      next: (data) => this.updateUid(data.id),
+      error: (e) => {
+        if (onError(e)) console.error(e);
       },
-      error: (e) => console.error(e),
     });
   }
 
@@ -52,21 +59,18 @@ export class UserService {
   }
 
   /**
-   * Attempt to login, setting the login state if successful or
-   * executing the provided callback in case of invalid credentials
+   * Attempt to login, setting the login state if successful,
+   * or invoke the given callback if not, logging the error
+   * if the callback returns a truthy value
    */
   login(
     data: { username: string; password: string },
-    invalidCallback: () => any
+    onError: (err: any) => any
   ) {
     this.http.put<{ id: number }>(`${baseUrl}/users/login`, data).subscribe({
       next: (data) => this.updateUid(data.id),
       error: (e) => {
-        if (e.status == 403) {
-          invalidCallback();
-        } else {
-          console.error(e);
-        }
+        if (onError(e)) console.error(e);
       },
     });
   }

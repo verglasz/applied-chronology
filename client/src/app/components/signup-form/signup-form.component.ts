@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class SignupFormComponent implements OnInit {
   form!: FormGroup;
   hidePw: boolean = true;
+  duplicateUser = false;
 
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
@@ -30,7 +31,14 @@ export class SignupFormComponent implements OnInit {
   }
 
   submit(form: FormGroup): void {
+    this.duplicateUser = false;
     const { username, password } = form.value;
-    this.userService.register({ username, password });
+    this.userService.register({ username, password }, (err) => {
+      if (err.status === 409) {
+        this.duplicateUser = true;
+        return false;
+      }
+      return true;
+    });
   }
 }

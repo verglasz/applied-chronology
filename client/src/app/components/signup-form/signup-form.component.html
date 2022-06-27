@@ -42,8 +42,8 @@
           >
         </mat-form-field>
       </div>
-      <div class="padder">
-        <!-- to match the spacing in login-form -->
+      <div class="invalid-error">
+        <mat-error *ngIf="duplicateUser"> Username already exists! </mat-error>
       </div>
       <div>
         <button
